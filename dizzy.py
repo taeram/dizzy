@@ -5,8 +5,7 @@ from datetime import datetime
 from hashlib import sha1
 from hmac import new as hmac
 import requests
-from os import getenv, \
-               path
+import os
 import json
 import sys
 from envious import load_env
@@ -134,7 +133,7 @@ def usage():
 
 Command can be one of:
     update [record_name] [ip_address]       Update an A record
-""" % path.basename(sys.argv[0]))
+""" % os.path.basename(sys.argv[0]))
     sys.exit(1)
 
 if __name__ == "__main__":
@@ -144,9 +143,10 @@ if __name__ == "__main__":
     domain_name = sys.argv[1]
     command = sys.argv[2]
 
+    os.environ['ENV_FILE'] = os.path.dirname(os.path.abspath(__file__)) + '/.env'
     load_env()
-    api_key = getenv('DNSMADEEASY_API_KEY')
-    secret_key = getenv('DNSMADEEASY_SECRET_KEY')
+    api_key = os.getenv('DNSMADEEASY_API_KEY')
+    secret_key = os.getenv('DNSMADEEASY_SECRET_KEY')
 
     if not api_key or not secret_key:
         print "API Key or Secret Key not set. Please see README.md for instructions"

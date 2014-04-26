@@ -16,7 +16,6 @@ Installation
 ```bash
     # Clone the repo
     git clone https://github.com/taeram/dizzy.git ~/.dizzy
-
     cd ~/.dizzy/
 
     # Install the dependencies
@@ -27,9 +26,6 @@ Installation
     DNSMADEEASY_API_KEY=api-key-goes-here
     DNSMADEEASY_SECRET_KEY=secret-key-goes-here
     EOF
-
-    # Install dizzy
-    sudo ln -sf `pwd`/dizzy.py /usr/local/bin/dizzy
 
     # Voila!
     dizzy
