@@ -9,6 +9,8 @@ from os import getenv, \
                path
 import json
 import sys
+from envious import load_env
+
 
 class Dizzy(object):
     """
@@ -142,6 +144,7 @@ if __name__ == "__main__":
     domain_name = sys.argv[1]
     command = sys.argv[2]
 
+    load_env()
     api_key = getenv('DNSMADEEASY_API_KEY')
     secret_key = getenv('DNSMADEEASY_SECRET_KEY')
 

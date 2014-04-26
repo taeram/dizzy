@@ -22,10 +22,10 @@ Installation
     # Install the dependencies
     sudo pip install -r requirements.txt
 
-    # Add your DNS Made Easy API credentials to your ~/.bashrc
-    sudo tee -a ~/.bashrc << EOF
-    export DNSMADEEASY_API_KEY=api-key-goes-here
-    export DNSMADEEASY_SECRET_KEY=secret-key-goes-here
+    # Add your DNS Made Easy API credentials to your dizzy environment
+    sudo tee ~/.dizzy/.env << EOF
+    DNSMADEEASY_API_KEY=api-key-goes-here
+    DNSMADEEASY_SECRET_KEY=secret-key-goes-here
     EOF
 
     # Install dizzy
