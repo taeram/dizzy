@@ -40,7 +40,7 @@ In this example, we're updating www.example.com to point to 127.0.0.1
 
 Request
 ```bash
-~/.dizzy/dizzy example.com update www 127.0.0.1
+~/.dizzy/dizzy.py example.com update www 127.0.0.1
 ```
 
 Response
