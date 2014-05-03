@@ -28,16 +28,22 @@ Installation
     EOF
 
     # Voila!
-    dizzy
+    ~/.dizzy/dizzy.py
 ```
 
 Usage
 =====
 
-To update the A record for a domain:
+Update an A record. 
 
+In this example, we're updating www.example.com to point to 127.0.0.1
+
+Request
 ```bash
-# Usage: dizzy [domain name] update [record name] [IP address]
-dizzy example.com update www 127.0.0.1
-> www.example.com. 3600 IN A 127.0.0.1
+~/.dizzy/dizzy example.com update www 127.0.0.1
+```
+
+Response
+```
+www.example.com. 3600 IN A 127.0.0.1
 ```
