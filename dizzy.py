@@ -52,6 +52,9 @@ class Dizzy(object):
         """ Get all records for this domain """
 
         domain = self.get_domain(domain_name)
+        if not domain:
+            print "Could not find domain: %s" % domain_name
+            sys.exit(1)
 
         records = []
         result = {
@@ -76,10 +79,33 @@ class Dizzy(object):
 
         return None
 
+    def add_a_record(self, domain_name, record_name, value):
+        """ Add an A record in this domain """
+
+        domain = self.get_domain(domain_name)
+        record = {
+            "name": record_name,
+            "type": "A",
+            "value": value,
+            "ttl": "60"
+        }
+
+        self.request(
+            "%s/records/" % (domain['id']),
+            "POST",
+            record
+        )
+
+        return record
+
     def update_a_record(self, domain_name, record_name, value):
-        """ Update an a record in this domain """
+        """ Update an A record in this domain """
 
         record = self.get_domain_record(domain_name, record_name)
+        if not record:
+            print "Could not find record %s in %s" % (record_name, domain_name)
+            sys.exit(1)
+
         record['value'] = value
 
         self.request(
@@ -116,8 +142,15 @@ class Dizzy(object):
                 data=json.dumps(data),
                 headers=headers
             )
+        elif request_type is "POST":
+            req = requests.post(
+                request_url,
+                data=json.dumps(data),
+                headers=headers
+            )
 
-        if req.status_code > 200:
+        if req.status_code > 201:
+            print req.status_code
             if req.status_code is 404:
                 raise Exception("%s API endpoint not found" % url_postfix)
             else:
@@ -160,7 +193,10 @@ if __name__ == "__main__":
         record_name = sys.argv[3]
         record_value = sys.argv[4]
 
-        record = dizzy.update_a_record(domain_name, record_name, record_value)
+        if dizzy.get_domain_record(domain_name, record_name):
+            record = dizzy.update_a_record(domain_name, record_name, record_value)
+        else:
+            record = dizzy.add_a_record(domain_name, record_name, record_value)
         print "%s.%s. %s IN A %s" % (record['name'], domain_name, record['ttl'], record['value'])
     else:
         usage()
